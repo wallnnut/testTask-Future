@@ -1,4 +1,7 @@
 header {
     background-image: url("../images/background.jpg");
-    height: 400px;
+}
+h1 {
+    font-weight: 700;
+    color: #fff;
 }
