@@ -1,20 +1,40 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Badge from "react-bootstrap/Badge";
 
-const BookCard = () => {
+const BookCard = ({ book }) => {
 	return (
-		<Card>
-			<Card.Img variant="top" src="holder.js/100px180" />
-			<Card.Body>
-				<Card.Title>Card Title</Card.Title>
-				<Card.Text>
-					Some quick example text to build on the card title and make
-					up the bulk of the card's content.
-				</Card.Text>
-				<Button variant="primary">Go somewhere</Button>
-			</Card.Body>
-		</Card>
+		<>
+			{book && (
+				<Card
+					bg="light"
+					body
+					style={{
+						height: "100%",
+					}}
+				>
+					<Card.Img
+						variant="top"
+						src={book.volumeInfo.imageLinks?.thumbnail}
+					/>
+					<Card.Body>
+						<Badge className="fs-5 mb-3">
+							{book.volumeInfo.categories &&
+								book.volumeInfo?.categories[0]}
+						</Badge>
+						<Card.Title className="mb-3">
+							{book.volumeInfo?.title}
+						</Card.Title>
+						{book.volumeInfo.authors &&
+							book.volumeInfo?.authors.map((author) => (
+								<span style={{ marginRight: "5px" }}>
+									{author},
+								</span>
+							))}
+					</Card.Body>
+				</Card>
+			)}
+		</>
 	);
 };
 

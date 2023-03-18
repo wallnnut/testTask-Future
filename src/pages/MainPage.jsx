@@ -5,10 +5,15 @@ import Filter from "../modules/filter/Filter";
 import SearchField from "../modules/search/SearchField";
 import Sort from "../modules/sort/Sort";
 import "./main-page.css";
+import ThemeProvider from "react-bootstrap/ThemeProvider";
+import ShowMore from "../modules/showMore/ShowMore";
 
 const MainPage = () => {
 	return (
-		<>
+		<ThemeProvider
+			breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
+			minBreakpoint="xxs"
+		>
 			<header>
 				<Container fluid="lg">
 					<Row className="justify-content-md-center">
@@ -32,15 +37,24 @@ const MainPage = () => {
 				</Container>
 			</header>
 			<main>
-				<Container fluid="lg" className="mt-5">
+				<Container fluid="sm" className="mt-5">
 					<Row>
-						<Col>
+						<Col md={12} sm={12}>
 							<BooksList />
 						</Col>
 					</Row>
 				</Container>
 			</main>
-		</>
+			<footer>
+				<Container fluid="md">
+					<Row>
+						<Col sm={12} md={8}>
+							<ShowMore />
+						</Col>
+					</Row>
+				</Container>
+			</footer>
+		</ThemeProvider>
 	);
 };
 

@@ -7,9 +7,15 @@ const http = axios.create({
 });
 
 const httpService = {
-	get: async (payload) => {
-		const data = await http.get(
-			payload + "&key=" + process.env.REACT_APP_BOOKS_API_KEY
+	get: async ({ search, startIndex, maxResults }) => {
+		const { data } = await http.get(
+			search +
+				"&startIndex=" +
+				startIndex +
+				"&maxResults=" +
+				maxResults +
+				"&key=" +
+				process.env.REACT_APP_BOOKS_API_KEY
 		);
 		console.log(data);
 		return data;
