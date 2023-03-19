@@ -12,6 +12,7 @@ import BookDetails from "../modules/bookDetails/BookDetails";
 
 const MainPage = () => {
 	const { id } = useParams();
+
 	return (
 		<ThemeProvider
 			breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}

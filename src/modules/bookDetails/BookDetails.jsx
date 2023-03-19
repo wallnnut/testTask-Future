@@ -19,7 +19,7 @@ const BookDetails = ({ id }) => {
 				</Card.Body>
 			</Card>
 
-			<div className="w-50">
+			<div className="bg-light border w-50">
 				<h3>{book.volumeInfo.title}</h3>
 
 				{book.volumeInfo?.categories.map((category) => (

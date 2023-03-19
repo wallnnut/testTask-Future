@@ -22,7 +22,8 @@ const bookSlice = createSlice({
 		booksReceived: (state, action) => {
 			state.isLoading = false;
 			state.entities = action.payload.items;
-			state.totalItems = action.payload.totalItems;
+			state.totalItems = 0;
+			state.totalItems = action.totalItems;
 			state.startIndex = state.maxResults;
 			state.dataLoaded = true;
 		},
@@ -32,11 +33,17 @@ const bookSlice = createSlice({
 		},
 		booksPaginationRequest: (state, action) => {
 			state.isLoading = true;
-			state.startIndex += state.maxResults + 1;
+			state.startIndex += state.maxResults;
 		},
 		booksPaginationReceived: (state, action) => {
 			state.isLoading = false;
 			state.entities = [...state.entities, ...action.payload];
+			state.entities = state.entities.reduce(
+				(arr, el) => (
+					arr.find(({ id }) => el.id === id) || arr.push(el), arr
+				),
+				[]
+			);
 			state.dataLoaded = true;
 		},
 		booksPaginationRequestFailed: (state, action) => {
