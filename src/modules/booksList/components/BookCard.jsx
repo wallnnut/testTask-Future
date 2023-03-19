@@ -27,8 +27,11 @@ const BookCard = ({ book }) => {
 						</Card.Title>
 						{book.volumeInfo.authors &&
 							book.volumeInfo?.authors.map((author) => (
-								<span style={{ marginRight: "5px" }}>
-									{author},
+								<span
+									key={author + book.id}
+									style={{ marginRight: "5px" }}
+								>
+									{author};
 								</span>
 							))}
 					</Card.Body>

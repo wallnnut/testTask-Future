@@ -7,8 +7,11 @@ import Sort from "../modules/sort/Sort";
 import "./main-page.css";
 import ThemeProvider from "react-bootstrap/ThemeProvider";
 import ShowMore from "../modules/showMore/ShowMore";
+import { useParams } from "react-router-dom";
+import BookDetails from "../modules/bookDetails/BookDetails";
 
 const MainPage = () => {
+	const { id } = useParams();
 	return (
 		<ThemeProvider
 			breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
@@ -36,24 +39,38 @@ const MainPage = () => {
 					</Row>
 				</Container>
 			</header>
-			<main>
-				<Container fluid="sm" className="mt-5">
-					<Row>
-						<Col md={12} sm={12}>
-							<BooksList />
-						</Col>
-					</Row>
-				</Container>
-			</main>
-			<footer>
-				<Container fluid="md">
-					<Row>
-						<Col sm={12} md={8}>
-							<ShowMore />
-						</Col>
-					</Row>
-				</Container>
-			</footer>
+			<>
+				{id ? (
+					<Container className="mt-3" fluid>
+						<Row>
+							<Col>
+								<BookDetails id={id} />
+							</Col>
+						</Row>
+					</Container>
+				) : (
+					<>
+						<main>
+							<Container fluid="sm" className="mt-5">
+								<Row>
+									<Col md={12} sm={12}>
+										<BooksList />
+									</Col>
+								</Row>
+							</Container>
+						</main>
+						<footer>
+							<Container fluid="md">
+								<Row>
+									<Col sm={12} md={8}>
+										<ShowMore />
+									</Col>
+								</Row>
+							</Container>
+						</footer>
+					</>
+				)}
+			</>
 		</ThemeProvider>
 	);
 };

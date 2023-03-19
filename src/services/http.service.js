@@ -7,9 +7,11 @@ const http = axios.create({
 });
 
 const httpService = {
-	get: async ({ search, startIndex, maxResults }) => {
+	get: async ({ search, startIndex, maxResults, order }) => {
 		const { data } = await http.get(
 			search +
+				"&orderBy=" +
+				order +
 				"&startIndex=" +
 				startIndex +
 				"&maxResults=" +
