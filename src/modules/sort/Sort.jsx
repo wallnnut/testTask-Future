@@ -2,17 +2,9 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import { FormText, Stack } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	getMaxResults,
-	getSearchQuery,
-	getStartIndex,
-	loadBooks,
-	sort,
-} from "../../store/bookSlice";
+import { getSearchQuery, loadBooks, sort } from "../../store/bookSlice";
 
 const Sort = () => {
-	const startIndex = useSelector(getStartIndex());
-	const maxResults = useSelector(getMaxResults());
 	const search = useSelector(getSearchQuery());
 	const dispatch = useDispatch();
 	const handleChange = ({ target }) => {

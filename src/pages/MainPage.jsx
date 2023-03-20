@@ -7,19 +7,21 @@ import Sort from "../modules/sort/Sort";
 import "./main-page.css";
 import ThemeProvider from "react-bootstrap/ThemeProvider";
 import ShowMore from "../modules/showMore/ShowMore";
-import { useParams } from "react-router-dom";
-import BookDetails from "../modules/bookDetails/BookDetails";
+import BookCount from "../modules/bookCount/BookCount";
+import { useSelector } from "react-redux";
+import { getBooks, getLoadingStatus } from "../store/bookSlice";
+import Preloader from "../modules/preLoader/Preloader";
 
 const MainPage = () => {
-	const { id } = useParams();
-
+	const isLoading = useSelector(getLoadingStatus());
+	const books = useSelector(getBooks());
 	return (
 		<ThemeProvider
 			breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
 			minBreakpoint="xxs"
 		>
 			<header>
-				<Container fluid="lg">
+				<Container fluid>
 					<Row className="justify-content-md-center">
 						<Col className="mt-5" md="auto">
 							<h1 className="fs-1">Search for Books</h1>
@@ -31,47 +33,42 @@ const MainPage = () => {
 						</Col>
 					</Row>
 					<Row className="pb-5 mt-5 justify-content-md-center">
-						<Col md={4}>
+						<Stack
+							direction="horizontal"
+							className="justify-content-center"
+							gap={4}
+						>
 							<Filter />
-						</Col>
-						<Col md={4}>
 							<Sort />
-						</Col>
+						</Stack>
 					</Row>
 				</Container>
 			</header>
-			<>
-				{id ? (
-					<Container className="mt-3" fluid>
-						<Row>
-							<Col>
-								<BookDetails id={id} />
-							</Col>
-						</Row>
-					</Container>
-				) : (
-					<>
-						<main>
-							<Container fluid="sm" className="mt-5">
-								<Row>
-									<Col md={12} sm={12}>
-										<BooksList />
-									</Col>
-								</Row>
-							</Container>
-						</main>
-						<footer>
-							<Container fluid="md">
-								<Row>
-									<Col sm={12} md={8}>
-										<ShowMore />
-									</Col>
-								</Row>
-							</Container>
-						</footer>
-					</>
-				)}
-			</>
+			<main>
+				<Container fluid="sm" className="mt-5">
+					<Row>
+						<Col className="mb-5" md={12} sm={12}>
+							{isLoading ? <Preloader /> : <BookCount />}
+						</Col>
+						<Col md={12} sm={12} lg={12}>
+							<BooksList />
+						</Col>
+					</Row>
+				</Container>
+			</main>
+			<footer>
+				<Container fluid="md">
+					<Row className="d-flex justify-content-center">
+						<Col sm={12} md={8}>
+							{isLoading && books !== null ? (
+								<Preloader />
+							) : (
+								<ShowMore />
+							)}
+						</Col>
+					</Row>
+				</Container>
+			</footer>
 		</ThemeProvider>
 	);
 };

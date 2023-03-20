@@ -11,17 +11,20 @@ const BookCard = ({ book }) => {
 					body
 					style={{
 						height: "100%",
+						color: "#000",
 					}}
 				>
 					<Card.Img
 						variant="top"
 						src={book.volumeInfo.imageLinks?.thumbnail}
 					/>
-					<Card.Body>
-						<Badge className="fs-5 mb-3">
-							{book.volumeInfo.categories &&
-								book.volumeInfo?.categories[0]}
-						</Badge>
+					<Card.Body className="overflow-auto">
+						{book.volumeInfo.categories && (
+							<div className="fs-4 p-2 mb-3 bg-primary rounded text-light">
+								{book.volumeInfo?.categories[0]}
+							</div>
+						)}
+
 						<Card.Title className="mb-3">
 							{book.volumeInfo?.title}
 						</Card.Title>

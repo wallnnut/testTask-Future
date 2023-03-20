@@ -13,6 +13,7 @@ const bookSlice = createSlice({
 		totalItems: 0,
 		searchQuery: "",
 		orderBy: "relevance",
+		filterQuery: "",
 	},
 	reducers: {
 		bookRequested: (state, action) => {
@@ -22,8 +23,13 @@ const bookSlice = createSlice({
 		booksReceived: (state, action) => {
 			state.isLoading = false;
 			state.entities = action.payload.items;
-			state.totalItems = 0;
-			state.totalItems = action.totalItems;
+			state.entities = state.entities.reduce(
+				(arr, el) => (
+					arr.find(({ id }) => el.id === id) || arr.push(el), arr
+				),
+				[]
+			);
+			state.totalItems = action.payload.totalItems;
 			state.startIndex = state.maxResults;
 			state.dataLoaded = true;
 		},
@@ -53,6 +59,9 @@ const bookSlice = createSlice({
 		orderByChanged: (state, action) => {
 			state.orderBy = action.payload;
 		},
+		filterChanged: (state, action) => {
+			state.filterQuery = action.payload;
+		},
 	},
 });
 
@@ -66,10 +75,11 @@ const {
 	booksPaginationReceived,
 	booksPaginationRequestFailed,
 	orderByChanged,
+	filterChanged,
 } = actions;
 
 export const loadBooks =
-	({ search, startIndex, maxResults, order }) =>
+	({ search, startIndex, maxResults, order, filter }) =>
 	async (dispatch) => {
 		dispatch(bookRequested(search));
 		try {
@@ -78,6 +88,7 @@ export const loadBooks =
 				startIndex,
 				maxResults,
 				order,
+				filter,
 			});
 			dispatch(booksReceived({ items, totalItems }));
 		} catch (error) {
@@ -85,7 +96,7 @@ export const loadBooks =
 		}
 	};
 export const loadMore =
-	({ search, startIndex, maxResults, order }) =>
+	({ search, startIndex, maxResults, order, filter }) =>
 	async (dispatch) => {
 		dispatch(booksPaginationRequest());
 		try {
@@ -94,6 +105,7 @@ export const loadMore =
 				startIndex,
 				maxResults,
 				order,
+				filter,
 			});
 			dispatch(booksPaginationReceived(items));
 		} catch (error) {
@@ -103,6 +115,9 @@ export const loadMore =
 export const sort = (sortQuery) => (dispatch) => {
 	dispatch(orderByChanged(sortQuery));
 };
+export const filter = (filterQuery) => (dispatch) => {
+	dispatch(filterChanged(filterQuery));
+};
 
 export const getStartIndex = () => (state) => state.book.startIndex;
 export const getMaxResults = () => (state) => state.book.maxResults;
@@ -111,6 +126,11 @@ export const getSearchQuery = () => (state) => state.book.searchQuery;
 export const getOrderQuery = () => (state) => state.book.orderBy;
 export const getBookById = (id) => (state) =>
 	state.book.entities.find((book) => book.id === id);
+export const getFilterQuery = () => (state) => state.book.filterQuery;
+export const getTotalItems = () => (state) => state.book.totalItems;
+export const getLoadingStatus = () => (state) => state.book.isLoading;
+
+
 
 
 export default bookReducer;

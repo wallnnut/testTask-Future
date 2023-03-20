@@ -11,7 +11,12 @@ const BooksList = () => {
 			{books &&
 				books.map((book) => (
 					<Col key={book.id} className="mb-5" md={6} lg={3}>
-						<Link to={`/${book.id}`}>
+						<Link
+							style={{
+								textDecoration: "none",
+							}}
+							to={`/details/${book.id}`}
+						>
 							<BookCard book={book} />
 						</Link>
 					</Col>

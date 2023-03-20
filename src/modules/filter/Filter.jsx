@@ -1,29 +1,42 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormText, Stack } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	filter,
+	getOrderQuery,
+	getSearchQuery,
+	loadBooks,
+} from "../../store/bookSlice";
 
 const Filter = () => {
-	const [filter, setFilter] = useState({
-		orderBy: "",
-	});
+	const search = useSelector(getSearchQuery());
+	const order = useSelector(getOrderQuery());
+	const dispatch = useDispatch();
 	const handleChange = ({ target }) => {
-		setFilter((prevState) => ({
-			...prevState,
-			[target.name]: target.value,
-		}));
+		dispatch(
+			loadBooks({
+				search,
+				startIndex: 0,
+				maxResults: 30,
+				order,
+				filter: target.value,
+			})
+		);
+		dispatch(filter(target.value));
 	};
 	return (
 		<Form>
 			<Stack direction="horizontal" gap={4}>
 				<FormText className="fs-5 text-white">Categories</FormText>
-				<Form.Select>
-					<option>All</option>
-					<option>Art</option>
-					<option>Biography</option>
-					<option>Computers</option>
-					<option>History</option>
-					<option>Medical</option>
-					<option>Poetry</option>
+				<Form.Select onChange={handleChange} name="categoryFilter">
+					<option value="">All</option>
+					<option value="art">Art</option>
+					<option value="biography">Biography</option>
+					<option value="computers">Computers</option>
+					<option value="history">History</option>
+					<option value="medical">Medical</option>
+					<option value="poetry">Poetry</option>
 				</Form.Select>
 			</Stack>
 		</Form>
