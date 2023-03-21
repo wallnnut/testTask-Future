@@ -3,7 +3,7 @@ import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { getTotalItems } from "../../store/bookSlice";
 
-const BookCount = () => {
+const BookCount: React.FC = () => {
 	const count = useSelector(getTotalItems());
 	return (
 		<div className="d-flex justify-content-center">

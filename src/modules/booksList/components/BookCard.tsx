@@ -1,8 +1,11 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
-import Badge from "react-bootstrap/Badge";
+import { IBook } from "types";
 
-const BookCard = ({ book }) => {
+interface IBookCard {
+	book: IBook;
+}
+const BookCard: React.FC<IBookCard> = ({ book }) => {
 	return (
 		<>
 			{book && (
@@ -14,22 +17,17 @@ const BookCard = ({ book }) => {
 						color: "#000",
 					}}
 				>
-					<Card.Img
-						variant="top"
-						src={book.volumeInfo.imageLinks?.thumbnail}
-					/>
+					<Card.Img variant="top" src={book.imageLinks?.thumbnail} />
 					<Card.Body className="overflow-auto">
-						{book.volumeInfo.categories && (
+						{book.categories && (
 							<div className="fs-4 p-2 mb-3 bg-primary rounded text-light">
-								{book.volumeInfo?.categories[0]}
+								{book.categories[0]}
 							</div>
 						)}
 
-						<Card.Title className="mb-3">
-							{book.volumeInfo?.title}
-						</Card.Title>
-						{book.volumeInfo.authors &&
-							book.volumeInfo?.authors.map((author) => (
+						<Card.Title className="mb-3">{book?.title}</Card.Title>
+						{book.authors &&
+							book.authors.map((author) => (
 								<span
 									key={author + book.id}
 									style={{ marginRight: "5px" }}

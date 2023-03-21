@@ -21,10 +21,12 @@ const MainPage = () => {
 			minBreakpoint="xxs"
 		>
 			<header>
-				<Container fluid>
-					<Row className="justify-content-md-center">
-						<Col className="mt-5" md="auto">
-							<h1 className="fs-1">Search for Books</h1>
+				<Container fluid="sm">
+					<Row className="justify-content-center">
+						<Col className="mt-5">
+							<h1 className=" text-center fs-1">
+								Search for Books
+							</h1>
 						</Col>
 					</Row>
 					<Row className="justify-content-md-center">
@@ -57,9 +59,9 @@ const MainPage = () => {
 				</Container>
 			</main>
 			<footer>
-				<Container fluid="md">
+				<Container>
 					<Row className="d-flex justify-content-center">
-						<Col sm={12} md={8}>
+						<Col className="mb-5" sm={12} md={8}>
 							{isLoading && books !== null ? (
 								<Preloader />
 							) : (

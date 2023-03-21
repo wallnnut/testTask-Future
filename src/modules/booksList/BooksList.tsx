@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 import { getBooks } from "../../store/bookSlice";
 import BookCard from "./components/BookCard";
 import { Link } from "react-router-dom";
-const BooksList = () => {
+
+const BooksList: React.FC = () => {
 	const books = useSelector(getBooks());
 	return (
 		<Row>

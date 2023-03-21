@@ -3,9 +3,9 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import BookDetails from "../modules/bookDetails/BookDetails";
 
-const BookDetailPage = () => {
+const BookDetailPage: React.FC = () => {
 	const { id } = useParams();
-	console.log(id);
+
 	return (
 		<>
 			<Container className="mt-3" fluid>

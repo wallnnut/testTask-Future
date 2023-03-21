@@ -1,0 +1,39 @@
+{
+	"compilerOptions": {
+		"target": "ES2017",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": false,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"noImplicitUseStrict": true,
+		"jsx": "react-jsx",
+		"typeRoots": ["./src/types", "./node_modules/@types"],
+		"paths": {
+			"hooks/*": ["hooks/*"],
+			"img/*": ["img/*"],
+			"pages/*": ["pages/*"],
+			"redux/*": ["redux/*"],
+			"api/*": ["api/*"],
+			"routes/*": ["routes/*"],
+			"UI/*": ["UI/*"]
+			// "types/*": ["types/*"]
+		},
+		"baseUrl": "./src"
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.tsx",
+		"**/*.jsx",
+		"**/*.js",
+		"src/modules/booksList/BooksListtjsx"
+	]
+}
